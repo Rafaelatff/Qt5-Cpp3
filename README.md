@@ -103,4 +103,122 @@ As result:
 
 ![image](https://user-images.githubusercontent.com/58916022/224026245-205fbb8b-0f31-4c49-a8a8-5fc752d04399.png)
 
+## Calling Lambda function 7
 
+Let's make the lambda function access a variable value outside the lambda function and make o copy of its value.
+
+```c++
+    // capturing by value
+    uint32_t c = 42;
+
+    // lambda function will access value outside the function
+    // and make o copy of its value
+    auto func = [c](){
+        cout << "The inner value of c is: " << c << endl;
+    };
+
+    for (uint32_t i =1 ; i<5 ; i++){
+        cout << "The outer value of c is: " << c << endl;
+        func();
+        c++;
+    }
+```
+
+And as result we have:
+
+![image](https://user-images.githubusercontent.com/58916022/224047452-8915b9e8-5bce-4528-9b3b-d781695402d8.png)
+
+## Calling Lambda function 8
+
+Lambda function will access a variable value outside the lambda function by its memory address, by just adding the '&' to the parameter list. Now we will be working on the original value (pointer to access memory value).
+
+```c++
+    // capturing by reference
+    uint32_t c = 42;
+
+    // lambda function will access value outside the function
+    // now we will be working on the original value (pointer to access memory value)
+    auto func = [&c](){
+        cout << "The inner value of c is: " << c << endl;
+    };
+
+    for (uint32_t i =1 ; i<5 ; i++){
+        cout << "The outer value of c is: " << c << endl;
+        func();
+        c++;
+    }
+```
+
+And the inner value follows the outer value as we can see in the results:
+
+![image](https://user-images.githubusercontent.com/58916022/224048304-819e83d1-385c-4ab8-a1c9-6d49d7f92cd6.png)
+
+## Calling Lambda function 9
+
+Now let's see the jump of the cat. Let's capture everything on the lambda function. See that we don't need to pass a whole lotta of variables to the lambda function, just the equal symbol.
+
+```c++
+    // capturing everything
+    uint32_t a = 7;
+    uint32_t b = 3;
+    uint32_t c = 42;
+    uint32_t d = 100;
+    uint32_t e = 12;
+    uint32_t f = 62;
+    uint32_t g = 25;
+
+    auto func = [=](){
+        cout << "The inner value of a is: " << a << endl;
+        cout << "The inner value of b is: " << b << endl;
+        cout << "The inner value of c is: " << c << endl;
+        cout << "The inner value of d is: " << d << endl;
+        cout << "The inner value of e is: " << e << endl;
+        cout << "The inner value of f is: " << f << endl;
+        cout << "The inner value of g is: " << g << endl;
+    };
+
+    for (uint32_t i =1 ; i<5 ; i++){
+        cout << "The outer value of c is: " << c << endl;
+        func();
+        c++;
+    }
+```
+
+And as result:
+
+![image](https://user-images.githubusercontent.com/58916022/224049836-85962145-c828-4271-9bb0-8418d207cf89.png)
+
+## Calling Lambda function 10
+
+And if we want to work with real value, just trade the '=' for '&'.
+
+```c++
+    // capturing everything
+    uint32_t a = 7;
+    uint32_t b = 3;
+    uint32_t c = 42;
+    uint32_t d = 100;
+    uint32_t e = 12;
+    uint32_t f = 62;
+    uint32_t g = 25;
+
+    auto func = [&](){
+        cout << "The inner value of a is: " << a << endl;
+        cout << "The inner value of b is: " << b << endl;
+        cout << "The inner value of c is: " << c << endl;
+        cout << "The inner value of d is: " << d << endl;
+        cout << "The inner value of e is: " << e << endl;
+        cout << "The inner value of f is: " << f << endl;
+        cout << "The inner value of g is: " << g << endl;
+    };
+
+    for (uint32_t i =1 ; i<5 ; i++){
+        cout << "The outer value of c is: " << c << endl;
+        func();
+        c++;
+    }
+```
+
+We can check it works by seeing the results:
+
+![image](https://user-images.githubusercontent.com/58916022/224050639-93446ef1-9114-45b1-b62f-d6461753dade.png)
